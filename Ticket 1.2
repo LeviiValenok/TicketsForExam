@@ -1,0 +1,113 @@
+#include <stdio.h>
+#include <malloc.h>
+#include <string.h>
+void FindTheLongestWord(char** mas, int numberOfStrings, int lengthOfString);
+int main()
+{
+	int n, m;
+	char** stringArray;
+	//char* theLongestWord;
+	printf("Enter a number of strings: \n");
+	scanf_s("%d", &n);
+	printf("Enter a size of string: \n");
+	scanf_s("%d", &m);
+
+	if (!(stringArray = (char**)calloc(n, sizeof(char*))))
+	{
+		printf("Ooops, something is getting wrong and memeory ia not allocated");
+		return 0;
+	}
+
+	printf("Enter a array of strings: \n");
+	rewind(stdin);
+	for (int i = 0; i < n; i++)
+	{
+		stringArray[i] = (char*)calloc((m + 2), sizeof(char)); //including '\0'
+		
+		fgets(stringArray[i], m + 1, stdin);
+		rewind(stdin);
+	}
+	printf("\n");
+
+	for (int i = 0; i < n; i++)
+	{
+		puts(stringArray[i]);
+	}
+
+	FindTheLongestWord(stringArray, n, m);
+
+
+	
+
+	for (int i = 0; i < n; i++)
+	{
+		free(stringArray[i]);
+	}
+
+	free(stringArray);
+	return 0;
+}
+
+void FindTheLongestWord(char** mas, int numberOfStrings, int lengthOfString)
+{
+	int n = numberOfStrings;
+	int m = lengthOfString;
+	char* theLongestWord;
+	//char* word;
+	//char* temp;
+	theLongestWord = (char*)calloc(2, sizeof(char));
+	int start = 0, end = 0, tempLength = 0, longest, l = 0, posStart = 0, posEnd = 0, wordLength = 0;
+	/*for (int i = 0; i < n; i++)*/
+	int i = n;
+	while (i--)
+	{
+		for (int j = 0; j < m + 1; j++)
+		{
+			start = j;
+			while (mas[i][j] != ' ' && mas[i][j] != '\0')
+			{
+				j++;
+			}
+			end = j;
+			wordLength = end - start;
+			if (wordLength >= tempLength)
+			{
+				longest = wordLength;
+				tempLength = wordLength;
+				posStart = start;
+				posEnd = end;
+			}
+			else
+			{
+				longest = tempLength;
+			}
+
+			theLongestWord = (char*)realloc(theLongestWord, longest + 1);
+
+			for (int k = posStart; k < posEnd; k++)
+			{
+
+				theLongestWord[l] = mas[i][k];
+				l++;
+			}
+
+			l = 0;
+
+			theLongestWord[longest] = '\0';
+			
+			if (mas[i][j] == '\0')
+			{
+				printf("\n");
+				puts(theLongestWord);
+				
+				break;
+			}
+
+		}
+		
+	}
+	
+	
+	free(theLongestWord);
+	
+}

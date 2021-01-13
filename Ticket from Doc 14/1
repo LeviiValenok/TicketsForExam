@@ -1,0 +1,66 @@
+//--------------------------14.1----------------
+
+#include <stdio.h>
+char* TransferToAnotherSystem(double fractionalPart, int base);
+int main()
+{
+
+	double number, fractionalPart;
+	int base;
+	int integerPart;
+	char* newNumber;
+	printf("Enter a number: \n");
+	scanf_s("%lf", &number);
+	printf("number is %lf\n", number);
+
+	printf("Enter a base: \n");
+	scanf_s("%d", &base);
+	printf("base is %d\n", base);
+
+	integerPart = number;
+	printf("integerPart is %d\n", integerPart);
+	fractionalPart = number - integerPart;
+	printf("fractionalPart is %lf\n", fractionalPart);
+	int n = 0;
+	newNumber = TransferToAnotherSystem(fractionalPart, base);
+
+	while (newNumber[n])
+	{
+		printf("%c", newNumber[n++]);
+	}
+
+	return 0;
+}
+
+char* TransferToAnotherSystem(double fractionalPart, int base)
+{
+	static int n;
+	int integer;
+	double temp;
+	static char newNumber[10];
+	if (n < 10)
+	{
+		temp = fractionalPart * base;
+
+		if (temp >= 1)
+		{
+			integer = temp;
+			temp -= integer;
+			newNumber[n] = integer + '0';
+			n++;
+
+			return TransferToAnotherSystem(temp, base);
+		}
+		else
+		{
+			integer = temp;
+			newNumber[n] = integer + '0';
+			n++;
+			return TransferToAnotherSystem(temp, base);
+		}
+	}
+	else {
+		return newNumber;
+	}
+
+}

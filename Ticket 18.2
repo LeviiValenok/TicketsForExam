@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+void ReverseLastWord(char* string, int start, int end);
+int main()
+{
+	int i = 0, start = 0, length = 0, count = 0;
+	int n;
+	char* string;
+	printf("Enter a number of elements in string: \n");
+	scanf_s("%d", &n);
+	string = (char*)calloc(n + 1, sizeof(char));
+	rewind(stdin);
+	fgets(string, n + 1, stdin);
+	puts(string);
+
+	while (string[i] != '\n' && string[i] != '\0')
+	{
+		i++;
+		length++;
+	}
+
+	for (int j = length; j > 0; j--)
+	{
+		while (string[j] != ' ')
+		{
+			j--;
+		}
+		if (string[i] = ' ')
+		{
+			count++;
+		}
+		start = j + 1;
+		if (count == 1)
+		{
+			break;
+		}
+	}
+	ReverseLastWord(string, start, length);
+	puts(string);
+
+	free(string);
+	return 0;
+}
+void ReverseLastWord(char* string, int start, int end)
+{
+	char temp;
+	if (start > end)
+	{
+		return;
+	}
+
+	temp = string[start];
+	string[start] = string[end];
+	string[end] = temp;
+
+	start++;
+	end--;
+	ReverseLastWord(string, start, end);
+}

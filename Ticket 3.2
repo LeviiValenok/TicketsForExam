@@ -1,0 +1,53 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+void ReverceWord(char* string, int start, int end);
+int main()
+{
+	int n;
+	int end = 0, start = 0, counter = 0, i = 0;
+	char* string;
+	printf("Enter a number of elements: \n");
+	scanf_s("%d", &n);
+	if (!(string = (char*)calloc(n + 1, sizeof(char))))
+	{
+		return -1;
+	}
+
+	rewind(stdin);
+	printf("Enter a string: \n");
+	fgets(string, n + 1, stdin);
+
+	puts(string);
+
+	while (string[i] != '\n' && string[i] != '\0')
+	{
+		start = i;
+		while (string[i] != ' ' && string[i] != '\n')
+		{
+			i++;
+		}
+		end = i - 1;
+		counter++;
+		if (counter % 2 != 0)
+		{
+			ReverceWord(string, start, end);
+		}
+		i++;
+	}
+
+	puts(string);
+
+	free(string);
+	return 0;
+}
+void ReverceWord(char* string, int start, int end)
+{
+	for (int i = start; i < end; i++)
+	{
+		char temp = string[i];
+		string[i] = string[end];
+		string[end] = temp;
+		end--;
+	}
+}

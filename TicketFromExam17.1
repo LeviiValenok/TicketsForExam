@@ -1,0 +1,25 @@
+#include <stdio.h>
+
+void Printf(long num)
+{
+	static int i;
+	long int j;
+	printf("\nEnter a number (%d): ");
+	scanf_s("%d", &j);
+	i++;
+	if (i < num)
+	{
+		Printf(num);
+	}
+	i--;
+	printf("%li[%d] ", j, i + 1);
+}
+int main()
+{
+	long int number;
+	printf("Enter a number of e;ements that you want to output in reverse order : ");
+	scanf_s("%li", &number);
+ 	Printf(number);
+	getchar();
+	return 0;
+}
